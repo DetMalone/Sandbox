@@ -19,7 +19,7 @@ public class Processor
 
     public void Run()
     {
-        for(char input = default; input != 'E'; )
+        for(char input = default; input != 'e'; )
         {
             StateMachine.Process(input = Console.ReadKey().KeyChar);
         }
@@ -73,11 +73,11 @@ public abstract class BaseState(Model model) : IState
 
 public class InitialState(Model model) : BaseState(model)
 {
-    public override List<char> AvailableKeys => ['S', 'G'];
+    public override List<char> AvailableKeys => ['s', 'g'];
 
-    public override void InitText() => Console.WriteLine("Print either 'S' to start or 'G' to get statistics.");
+    public override void InitText() => Console.WriteLine("Print either 's' to start or 'g' to get statistics.");
 
-    public override IState Next(char key) => key == 'S' ? new ProccesingState(_model) : new StatisticsState(_model);
+    public override IState Next(char key) => key == 's' ? new ProccesingState(_model) : new StatisticsState(_model);
 }
 
 public class StatisticsState(Model model) : BaseState(model)
@@ -106,7 +106,7 @@ public class ProccesingState(Model model) : BaseState(model)
 
     public override void InitText()
     {
-        "ABC".ToList().ForEach(key => Console.WriteLine($"{key}: {_model.Attempts[key]}|10, {_model.Stone[key]}"));
+        "abc".ToList().ForEach(key => Console.WriteLine($"{key}: {_model.Attempts[key]}|10, {_model.Stone[key]}"));
         Console.WriteLine($"Press key(one of available: {string.Join(" ", _model.AvailableKeys)}) to try increase relevant feature of stone.");
     }
 
@@ -148,19 +148,19 @@ public class Model
 
     public void Initialize()
     {
-        Stone = new() { ['A'] = 0, ['B'] = 0, ['C'] = 0 };
-        Attempts = new() { ['A'] = 0, ['B'] = 0, ['C'] = 0 };
+        Stone = new() { ['a'] = 0, ['b'] = 0, ['c'] = 0 };
+        Attempts = new() { ['a'] = 0, ['b'] = 0, ['c'] = 0 };
     }
 
     public void UpdateStatistics()
     {
-        if (Statistics.ContainsKey((Stone['A'], Stone['B'])))
+        if (Statistics.ContainsKey((Stone['a'], Stone['b'])))
         {
-            Statistics[(Stone['A'], Stone['B'])]++;
+            Statistics[(Stone['a'], Stone['b'])]++;
         }
         else
         {
-            Statistics.Add((Stone['A'], Stone['B']), 0);
+            Statistics.Add((Stone['a'], Stone['b']), 0);
         }
     }
 
