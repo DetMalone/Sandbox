@@ -107,7 +107,7 @@ public class ProccesingState(Model model) : BaseState(model)
     public override void InitText()
     {
         "abc".ToList().ForEach(key => Console.WriteLine($"{key}: {_model.Attempts[key]}|10, {_model.Stone[key]}"));
-        Console.WriteLine($"Press key(one of available: {string.Join(" ", _model.AvailableKeys)}) to try increase relevant feature of stone.");
+        Console.WriteLine($"Press key(one of available: {string.Join(" ", _model.AvailableKeys)}) to try increase relevant feature of stone with chance {_model.Chance}.");
     }
 
     public override IState Next(char key)
@@ -133,10 +133,10 @@ public class Model
     public Dictionary<(int A, int B), int> Statistics { get; private set; } = [];
     public Dictionary<char, int> Stone { get; private set; } = [];
     public Dictionary<char, int> Attempts { get; private set; } = [];
+    private decimal _chanceValue = 0.75M;
+    public decimal Chance { get => _chanceValue; private set => _chanceValue = value > 0.75M ? 0.75M : value < 0.25M ? 0.25M : value; }
 
     private readonly Random _generator = new();
-    private decimal _chanceValue = 0.75M;
-    private decimal Chance { get => _chanceValue; set => _chanceValue = value > 0.75M ? 0.75M : value < 0.25M ? 0.25M : value; }
 
     public Model() => Initialize();
 
