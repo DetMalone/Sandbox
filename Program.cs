@@ -40,7 +40,7 @@ public class StateMachine
     {
         if (_currentState.AvailableKeys.Count > 0 && !_currentState.AvailableKeys.Contains(input))
         {
-            Console.WriteLine("Wrong input, try again please.");
+            Console.WriteLine(" - Wrong input, try again please.");
             return;
         }
 
