@@ -108,7 +108,14 @@ public class ProccesingState(Model model) : BaseState(model)
     {
         Console.WriteLine($"Change: {_model.Chance}");
         "abc".ToList().ForEach(key => Console.WriteLine($"{key}: {_model.Attempts[key]}|10, {_model.Stone[key]}"));
-        Console.WriteLine($"Press key(one of available: {string.Join(" ", _model.AvailableKeys)}) to try increase relevant feature of stone.");
+        if (_model.AvailableKeys.Count > 0)
+        {
+            Console.WriteLine($"Press key(one of available: {string.Join(" ", _model.AvailableKeys)}) to try increase relevant feature of stone.");
+        }
+        else
+        {
+            Console.WriteLine("Press any key to return home.");
+        }
     }
 
     public override IState Next(char key)
@@ -134,7 +141,7 @@ public class Model
     public Dictionary<(int A, int B), int> Statistics { get; private set; } = [];
     public Dictionary<char, int> Stone { get; private set; } = [];
     public Dictionary<char, int> Attempts { get; private set; } = [];
-    private decimal _chanceValue = 0.75M;
+    private decimal _chanceValue;
     public decimal Chance { get => _chanceValue; private set => _chanceValue = value > 0.75M ? 0.75M : value < 0.25M ? 0.25M : value; }
 
     private readonly Random _generator = new();
@@ -151,6 +158,7 @@ public class Model
     {
         Stone = new() { ['a'] = 0, ['b'] = 0, ['c'] = 0 };
         Attempts = new() { ['a'] = 0, ['b'] = 0, ['c'] = 0 };
+        Chance = 0.75M;
     }
 
     public void UpdateStatistics()
