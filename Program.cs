@@ -170,12 +170,12 @@ public class Model
         Attempts[property]++;
         if ((decimal)_generator.NextDouble() < Chance)
         {
-            Chance += 0.1M;
+            Stone[property]++;
+            Chance -= 0.1M;
         }
         else
         {
-            Stone[property]++;
-            Chance -= 0.1M;
+            Chance += 0.1M;
         }
     }
 }
