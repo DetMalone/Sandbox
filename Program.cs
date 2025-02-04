@@ -106,8 +106,9 @@ public class ProccesingState(Model model) : BaseState(model)
 
     public override void InitText()
     {
+        Console.WriteLine($"Change: {_model.Chance}");
         "abc".ToList().ForEach(key => Console.WriteLine($"{key}: {_model.Attempts[key]}|10, {_model.Stone[key]}"));
-        Console.WriteLine($"Press key(one of available: {string.Join(" ", _model.AvailableKeys)}) to try increase relevant feature of stone with chance {_model.Chance}.");
+        Console.WriteLine($"Press key(one of available: {string.Join(" ", _model.AvailableKeys)}) to try increase relevant feature of stone.");
     }
 
     public override IState Next(char key)
