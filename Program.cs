@@ -28,13 +28,11 @@ public class Processor
 
 public class StateMachine
 {
-    private readonly Model _model;
     private IState _currentState;
 
     public StateMachine()
     {
-        _model = new Model();
-        _currentState = new InitialState(_model);
+        _currentState = new InitialState(new Model());
         Print();
     }
 
